@@ -43,21 +43,21 @@ public class TaskDAOImpl implements TaskDAO{
 
 
     @Override
-    public void deleteTask(int id) {
-        taskList.removeIf(t -> t.getId() == id);
+    public void deleteTask(int id) throws Exception {
+        if(!taskList.removeIf(t -> t.getId() == id)){
+            throw new Exception();
+        }
     }
 
     private void saveOrUpdate(Task task) {
         int id = task.getId();
         if (id == 0) {
             task.setId(++TASK_COUNT);
-            task.setLastUpdate(new Date(System.currentTimeMillis()));
             taskList.add(task);
         } else {
             taskList.stream().filter(t -> t.getId() == id).forEach(t -> {
                 t.setName(task.getName());
                 t.setDescription(task.getDescription());
-                t.setLastUpdate(new Date(System.currentTimeMillis()));
             });
         }
     }

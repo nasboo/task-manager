@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/api")
@@ -20,7 +21,7 @@ public class TaskController {
     }
 
     @GetMapping("/tasks")
-    public ArrayList<Task> getAllTasks(){
+    public ArrayList<Task> getAllTasks() {
         return taskDAO.getAllTasks();
     }
 
@@ -31,16 +32,31 @@ public class TaskController {
 //        }
         return taskDAO.getTask(id);
     }
+
     @PostMapping("/tasks")
-    public Task addNewTask(@RequestBody Task task){
+    public Task addNewTask(@RequestBody Task task) {
         task.setId(0);
+        task.setLastUpdate(new Date(System.currentTimeMillis()));
         taskDAO.saveTask(task);
         return task;
 
     }
+
     @PutMapping("/tasks")
-    public void updateTask(@RequestBody Task task){
+    public Task updateTask(@RequestBody Task task) {
+        task.setLastUpdate(new Date(System.currentTimeMillis()));
         taskDAO.saveTask(task);
+        return task;
+    }
+
+    @DeleteMapping("/tasks/{id}")
+    public String deleteTask(@PathVariable int id) {
+        try {
+            taskDAO.deleteTask(id);
+            return "Task " + id + " was deleted";
+        } catch (Exception e) {
+            return "Task " + id + " not found";
+        }
     }
 
 }

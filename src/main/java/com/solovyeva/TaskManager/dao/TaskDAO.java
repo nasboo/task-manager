@@ -12,5 +12,5 @@ public interface TaskDAO {
 
     Task getTask(int id);
 
-    void deleteTask(int id);
+    void deleteTask(int id) throws Exception;
 }
