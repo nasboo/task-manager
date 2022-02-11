@@ -11,6 +11,11 @@ public class Task {
     public Task() {
     }
 
+    public Task(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public Task(String name, String description, Date lastUpdate) {
         this.name = name;
         this.description = description;

@@ -10,19 +10,25 @@ import java.util.List;
 @Component
 public class TaskDAOImpl implements TaskDAO{
     private static int TASK_COUNT;
-    List<Task> taskList = new ArrayList<>();
+    ArrayList<Task> taskList = new ArrayList<>();
     {
         taskList.add(new Task(1,"one","dsddsdsd",new Date()));
         taskList.add(new Task(2,"two","dsddsdsd",new Date()));
         taskList.add(new Task(3,"three","dsddsdsd",new Date()));
         taskList.add(new Task(4,"four","dsddsdsd",new Date()));
+        TASK_COUNT = taskList.size();
     }
 
     public TaskDAOImpl() {
     }
 
-    public TaskDAOImpl(List<Task> taskList) {
+    public TaskDAOImpl(ArrayList<Task> taskList) {
         this.taskList = taskList;
+    }
+
+    @Override
+    public ArrayList<Task> getAllTasks() {
+        return taskList;
     }
 
     @Override
@@ -45,6 +51,7 @@ public class TaskDAOImpl implements TaskDAO{
         int id = task.getId();
         if (id == 0) {
             task.setId(++TASK_COUNT);
+            task.setLastUpdate(new Date(System.currentTimeMillis()));
             taskList.add(task);
         } else {
             taskList.stream().filter(t -> t.getId() == id).forEach(t -> {
