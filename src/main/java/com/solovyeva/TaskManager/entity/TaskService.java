@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface TaskService {
     List<Task> getAllTasks();
-    Task getTask(int id);
+    Task getTask(String id);
     void saveTask(Task task);
-    void deleteTask(int id);
+    void deleteTask(String id);
 }
