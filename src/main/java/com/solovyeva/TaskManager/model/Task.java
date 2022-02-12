@@ -1,12 +1,27 @@
 package com.solovyeva.TaskManager.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
+@Entity
+@Table(name = "tasks")
 public class Task {
+    @Id
+    @Column( name = "id")
     private int id;
-    private String name;
+    @Column(name = "description")
     private String description;
+    @Column(name = "name")
+    private String name;
+    @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private Date lastUpdate;
+
 
     public Task() {
     }

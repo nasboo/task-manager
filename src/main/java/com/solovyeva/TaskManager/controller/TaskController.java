@@ -1,62 +1,50 @@
 package com.solovyeva.TaskManager.controller;
 
-import antlr.collections.List;
-import com.solovyeva.TaskManager.dao.TaskDAO;
 import com.solovyeva.TaskManager.model.Task;
+import com.solovyeva.TaskManager.entity.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class TaskController {
 
-    private TaskDAO taskDAO;
+    @Autowired
+    private TaskService taskService;
 
     @Autowired
-    public TaskController(TaskDAO taskDAO) {
-        this.taskDAO = taskDAO;
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
     }
 
     @GetMapping("/tasks")
-    public ArrayList<Task> getAllTasks() {
-        return taskDAO.getAllTasks();
+    public List<Task> getAllTasks() {
+        return taskService.getAllTasks();
     }
 
     @GetMapping("/tasks/{id}")
     public Task getTask(@PathVariable int id) {
-        //        if (task == null) {
-//            throw new RuntimeException("There is no task with Id = " + id);
-//        }
-        return taskDAO.getTask(id);
+
+        return taskService.getTask(id);
     }
 
     @PostMapping("/tasks")
     public Task addNewTask(@RequestBody Task task) {
-        task.setId(0);
-        task.setLastUpdate(new Date(System.currentTimeMillis()));
-        taskDAO.saveTask(task);
+        taskService.saveTask(task);
         return task;
-
     }
 
     @PutMapping("/tasks")
     public Task updateTask(@RequestBody Task task) {
-        task.setLastUpdate(new Date(System.currentTimeMillis()));
-        taskDAO.saveTask(task);
+        taskService.saveTask(task);
         return task;
     }
 
     @DeleteMapping("/tasks/{id}")
-    public String deleteTask(@PathVariable int id) {
-        try {
-            taskDAO.deleteTask(id);
-            return "Task " + id + " was deleted";
-        } catch (Exception e) {
-            return "Task " + id + " not found";
-        }
+    public void deleteTask(@PathVariable int id) {
+        taskService.deleteTask(id);
     }
 
 }
