@@ -1,7 +1,7 @@
-package com.solovyeva.TaskManager.entity;
+package com.solovyeva.TaskManager.service;
 
 import com.solovyeva.TaskManager.dao.TaskRepository;
-import com.solovyeva.TaskManager.model.Task;
+import com.solovyeva.TaskManager.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

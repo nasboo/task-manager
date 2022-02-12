@@ -1,8 +1,8 @@
 package com.solovyeva.TaskManager.controller;
 
-import com.solovyeva.TaskManager.entity.TaskService;
+import com.solovyeva.TaskManager.service.TaskService;
 import com.solovyeva.TaskManager.exception.NoSuchTaskException;
-import com.solovyeva.TaskManager.model.Task;
+import com.solovyeva.TaskManager.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

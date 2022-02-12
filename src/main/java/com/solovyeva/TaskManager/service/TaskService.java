@@ -1,6 +1,6 @@
-package com.solovyeva.TaskManager.entity;
+package com.solovyeva.TaskManager.service;
 
-import com.solovyeva.TaskManager.model.Task;
+import com.solovyeva.TaskManager.entity.Task;
 import java.util.List;
 
 public interface TaskService {

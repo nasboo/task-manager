@@ -1,4 +1,4 @@
-package com.solovyeva.TaskManager.model;
+package com.solovyeva.TaskManager.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -6,18 +6,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Entity
 @Table(name = "tasks")
 public class Task {
     @Id
-    @Column( name = "id")
-    private int id;
-    @Column(name = "description")
-    private String description;
+    @Column(name = "id")
+    @NotEmpty
+    private String id;
     @Column(name = "name")
     private String name;
+    @Column(name = "description")
+    private String description;
     @Column
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private Date lastUpdate;
@@ -26,29 +28,17 @@ public class Task {
     public Task() {
     }
 
-    public Task(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    public Task(String name, String description, Date lastUpdate) {
-        this.name = name;
-        this.description = description;
-        this.lastUpdate = lastUpdate;
-    }
-
-    public Task(int id, String name, String description, Date lastUpdate) {
+    public Task(String id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.lastUpdate = lastUpdate;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
